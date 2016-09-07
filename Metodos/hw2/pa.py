@@ -1,0 +1,76 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.constants as sc
+
+def I(v,T):
+    v=v*(10**9)
+    k=(2*sc.h/(sc.c**2))*v*v*v
+    d=(1/(np.expm1(sc.h*v/(sc.k*T))))
+    I=k*d
+    return I
+
+def dI1(v,T):
+    v=v*(10**9)
+    k1=6*sc.h*v*v/(sc.c*sc.c)
+    d1=(1/(np.expm1(sc.h*v/(sc.k*T))))
+    k2=2*sc.h*sc.h*v*v*v/(sc.c*sc.c*sc.k*T)
+    dI1=k1*d1-(k2*d1*d1*np.exp(sc.h*v/(sc.k*T)))
+    return dI1
+
+def dI2(v,T):
+    v=v*(10**9)
+    k1=12*sc.h*v/(sc.c*sc.c)
+    d1=(1/(np.expm1(sc.h*v/(sc.k*T))))
+    k2=12*sc.h*sc.h*v*v/(sc.c*sc.c*sc.k*T)
+    e=np.exp(sc.h*v/(sc.k*T))
+    k3=4*sc.h*sc.h*sc.h*v*v*v/(sc.c*sc.c*sc.k*sc.k*T*T)
+    k4=2*sc.h*sc.h*sc.h*v*v*v/(sc.c*sc.c*sc.k*sc.k*T*T)
+    dI2=(k1*d1)-(k2*d1*d1*e)+(k3*d1*d1*d1*e*e)-(k4*d1*d1*e)
+    return dI2
+
+def cd1(v,T,h):
+    didv=(I(v+0.5*h,T)-I(v-0.5*h,T))/h
+    return didv
+
+def cd2(v,T,h):
+    d2=(dI1(v+0.5*h,T)-dI1(v-0.5*h,T))/h
+    return d2
+
+def ed1(v,T,h):
+    didv=(4*cd1(v,T,0.5*h)-cd1(v,T,h))/(3)
+    return didv
+
+def ed2(v,T,h):
+    d2=(4*cd2(v,T,0.5*h)-cd2(v,T,h))/3
+    return d2
+
+#T=np.logspace(1,3)
+T=[10,30,100,288,1000]
+tol=1e-30
+maxiter=10000
+b=[]
+
+for j in T:
+    v0=1000
+    F=dI1(v0,j)
+    while F>tol:
+        v0=v0-(F/(dI2(v0,j)))
+    else:
+        b.append(v0)
+    #for i in range(maxiter):
+        #vm=v0
+        #F=dI1(vm,j)
+        #if(abs(F)<tol):
+            #b.append(vm)
+            #break
+        #vm=vm-(F/(dI2(vm,j)))
+
+
+print(dI2(100,1000))
+print(sc.physical_constants['Wien frequency displacement law constant'])
+print(b)
+#print(np.mean(b))
+
+#fig=plt.figure()
+#plt.scatter(T,b)
+#plt.show()

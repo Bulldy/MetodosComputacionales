@@ -1,0 +1,14 @@
+import genetica
+import random
+
+k1=random.random()*20
+k2=random.random()*200
+y1=random.random()
+y2=random.random()
+delta=0.0001
+Tff=rnadom.random()*1500
+
+prueba=genetica.Expresion(kr=k1,kp=k2,yr=y1,yp=y2,dt=delta,Tf=Tff)
+
+prueba.resuelve()
+prueba.grafica(analitica=True)
