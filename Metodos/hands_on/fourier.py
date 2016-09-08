@@ -21,7 +21,14 @@ frecuencia=range(len(x))
 re=[z.real for z in fg]
 im=[z.imag for z in fg]
 
+npfft=np.fft.fft(f)
+fftt=[z.imag for z in npfft]
+
 fig=plt.figure()
-plt.scatter(frecuencia,re)
-plt.scatter(frecuencia,im)
+plt.stem(frecuencia,re,marker="|")
+plt.stem(frecuencia,im,marker="|")
+plt.xlim([-50,1050])
+#plt.plot(frecuencia,fftt)
 plt.show()
+
+
