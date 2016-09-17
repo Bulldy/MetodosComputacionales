@@ -1,0 +1,12 @@
+import numpy as np
+
+N=4
+R=np.random.rand(N,N+1)
+
+for i in range(N-1):
+    for j in range(i+1,N):
+        factor=(R[j,i])/(R[i,i])
+        for k in range(N+1):
+            R[j,k]=R[j,k]-factor*R[i,k]
+
+print R
