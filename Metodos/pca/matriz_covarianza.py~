@@ -1,10 +1,11 @@
 import numpy as np
 
-data=np.loadtxt('data_A.txt')
+data=np.loadtxt('data_C.txt')
 Exi=[]
 shape=data.shape
 dims=shape[1]
 
+print(data)
 for i in range(dims):
     x=data[:,1]
     ex=np.mean(x)
