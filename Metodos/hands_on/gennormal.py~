@@ -1,0 +1,15 @@
+import random
+import matplotlib.pyplot as plt
+
+num=[]
+N=1000
+
+for j in range(N):
+    ran=0
+    for i in range(100000):
+        ran=ran+random.random()
+    num.append(ran)
+num=[(i-N/2) for i in num] 
+
+plt.hist(num,50)
+plt.show()

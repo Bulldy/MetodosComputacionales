@@ -9,7 +9,7 @@ fg=[]
 
 for k in range(N):
     ff=[]
-    for n in range(len(f)):
+    for n in range(N):
         e=cm.exp(-2*cm.pi*1j*k*n/N)
         fk=f[n]*e
         ff.append(fk)

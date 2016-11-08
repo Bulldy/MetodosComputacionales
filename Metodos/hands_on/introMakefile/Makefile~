@@ -1,4 +1,4 @@
-xclineas.dat:cuenta.py salida.txt
+lineas.dat:cuenta.py salida.txt
 	python cuenta.py
 salida.txt:a.out
 	./a.out>salida.txt

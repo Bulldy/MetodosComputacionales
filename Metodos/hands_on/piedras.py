@@ -1,0 +1,13 @@
+import random 
+import numpy as np
+
+nhits=0
+N=1000000
+
+for i in range(N):
+    x=np.random.uniform(-1,1)
+    y=np.random.uniform(-1,1)
+    if(x**2+y**2<1):
+        nhits=nhits+1
+
+print(nhits*4/N)
